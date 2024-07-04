@@ -2,27 +2,26 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-car1 = {"number": "123-456", "problems": []}
-car2 = {"number": "456-789", "problems": []}
-cars = [car1, car2]
+car1 = {"id": "1", "number": "111-111", "problems": [], "image": "https://res.cloudinary.com/midrag/image/upload/c_scale,w_1400,q_auto,f_auto/Cms/gzxece10vhxs6sm7gy7x.jpg"}
+car2 = {"id": "2", "number": "222-222", "problems": [], "image": "https://pic1.calcalist.co.il/PicServer3/2017/02/12/702870/CAL0308656_l.jpg"}
+car3 = {"id": "3", "number": "333-333", "problems": [], "image": "https://www.hon.co.il/wp-content/uploads/2019/04/asfanut.jpg"}
+car4 = {"id": "4", "number": "444-444", "problems": [], "image": "https://thecar.co.il/wp-content/uploads/2018/01/PHOTOS-by-Noam-Wind_119-1024x683.jpg"}
+car5 = {"id": "5", "number": "555-555", "problems": [], "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5XHl_vUEcJpjEUQCOVcwQrEd-Uxx5T8Msdw&s"}
+car6 = {"id": "6", "number": "666-666", "problems": [], "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdCszi23Ry3hTlhVcYkpp_KEVwgOWnObBFwg&s"}
+cars = [car1, car2, car3, car4, car5, car6]
 
 
 @app.route("/")
 def cars_list():
-   return render_template('car_list.html', car_list=cars)
-
-    # final_str = ""
-    # for car in cars:
-    #     final_str += f"<p>{car['number']}</p>"
-
-    # return final_str
+    return render_template('car_list.html', car_list=cars)
 
 
-@app.route("/single_car/<int:index>")
-def single_car(index):
-    return (
-        f"<p>Number:{cars[index]['number']} <br> Problems:{cars[index]['problems']}</p>"
-    )
+@app.route("/single_car/<int:id>")
+def single_car(id):
+    for car in cars:
+         if car["id"] == id: #if you have found this id → return ↓
+            return render_template("single_car.html", car=car) #else, return ↓
+    return render_template("single_car.html", car=None) #can go to "error_page.html"
 
 
 @app.route("/add_car/")

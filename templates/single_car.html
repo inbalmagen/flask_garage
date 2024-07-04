@@ -60,8 +60,7 @@
     </div>
   </div>
 </nav>
-{% for car in car_list %}
-<a href="/single_car/{{ car.id }}">
+{{ if car is not none:}}
 <div class="container">    
   <div class="row">
     <div class="col-sm-4">
@@ -73,10 +72,9 @@
         <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
       </div>
     </div>
-</a>  
-{% endfor %}
-
-</div><br><br>
+</div>
+{{ endif}}
+<br><br>
 
 <footer class="container-fluid text-center">
   <p>Online Store Copyright</p>  
