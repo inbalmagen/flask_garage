@@ -3,11 +3,16 @@
 <body>
 
 <h2>Please enter:</h2>
+<!-- car1 = {"id": "1", "number": "111-111", "problems": [], "image": -->
 
 <form action="/add_to_list" method="POST"> 
+  <label for="fname">Car id:</label><br>
+  <input type="text" id="cId" name="cId" ><br>
   <label for="fname">Car number:</label><br>
   <input type="text" id="cNunber" name="cNumber" ><br>
-  <label for="lname">Car url:</label><br>
+  <label for="fname">Car problems:</label><br>
+  <input type="text" id="cProblems" name="cProblems" ><br>
+  <label for="lname">Car image:</label><br>
   <input type="text" id="cURL" name="cURL" ><br><br>
   <input type="submit" value="Add Car">
 </form> 
