@@ -67,23 +67,28 @@
     </div>
   </div>
 </nav>
-{% for car in car_list %}
-<a href="/single_car/{{ car.id }}">
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-         {{ car['number'] }}       
-         </div>
-        <div class="panel-body"><img src= {{car.image}} class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-      </div>
-    </div>
-</a>  
-{% endfor %}
 
-</div><br><br>
+<div class="container">
+  <div class="row">
+    {% for car in car_list %}
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">{{ car['number'] }}</div>
+          <div class="panel-body">
+            <img src="{{ car.image }}" class="img-responsive" style="width:100%" alt="Image">
+          </div>
+          <div class="panel-footer">
+            <a href="/single_car/{{ car.id }}" class="btn btn-info" role="button">View</a>
+            <form action="/delete_car/{{ car.id }}" method="post" style="display:inline;">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
 
 <footer class="container-fluid text-center">
   <p>Online Store Copyright</p>  

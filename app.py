@@ -1,4 +1,22 @@
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
+
+# class user:
+#     def __init__(self, id, username, password):
+#         self.id = id
+#         self.username = username
+#         self.password = password
+        
+#     def __repr__(self):
+#         return f"<user: {self.username}> "
+
+# users = []
+# users.append(user(id=1, username="inbal", password="password"))
+# users.append(user(id=2, username="dor", password="111"))
+# users.append(user(id=3, username="danielle", password="222"))
+
+# print(users)
+# print(users[1].password)
+# print(users[2].username)
 
 app = Flask(__name__)
 
@@ -32,6 +50,16 @@ def cars_list():
         filtered_cars = [car for car in filtered_cars if search in car['number'].lower() or any(search in problem.lower() for problem in car.get('problems', []))]
 
     return render_template("car_list.html", car_list=filtered_cars)
+
+# @app.route("/login", methods=["POST", "GET"])
+# def login():  
+#     if request.method == "POST":
+
+#         return render_template("login.html")
+
+# @app.route("/profile")
+# def profile():
+#     return render_template("profile.html")
 
 
 # @app.route("/")
@@ -79,6 +107,11 @@ def add_to_list():
         print("****** Adding to list", cNumber, cId, cProblems, cURL)
         return f"Added to list: {cNumber}, {cId}, {cProblems}, {cURL}"
 
+@app.route("/delete_car/<id>", methods=["POST"])
+def delete_car(id):
+    global cars
+    cars = [car for car in cars if car["id"] != id]
+    return redirect(url_for('cars_list'))
 
 if __name__ == "__main__":
     app.run(debug=True, port=9000)
