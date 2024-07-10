@@ -69,9 +69,18 @@
          {{ car['number'] }}       
          </div>
         <div class="panel-body"><img src= {{car.image}} class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+        <div class="panel-footer">
+          <p>Problems: {{ car.problems | join(', ') }}</p>
+          <p>Urgent: {{ 'Yes' if car.urgent else 'No' }}</p>
+          <a href="/" class="btn btn-primary">Back</a>
+        </div>
       </div>
     </div>
+</div>
+{% else %}
+<div class="container">
+  <div class="alert alert-danger" role="alert">Car not found!</div>
+  <a href="/" class="btn btn-primary">Back to Car List</a>
 </div>
 {% endif %}
 <br><br>

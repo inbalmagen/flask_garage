@@ -79,6 +79,7 @@
           </div>
           <div class="panel-footer">
             <a href="/single_car/{{ car.id }}" class="btn btn-info" role="button">View</a>
+            <a href="/edit_car/{{ car.id }}" class="btn btn-warning" role="button">Edit</a>
             <form action="/delete_car/{{ car.id }}" method="post" style="display:inline;">
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>
@@ -88,6 +89,7 @@
     {% endfor %}
   </div>
 </div>
+
 
 
 <footer class="container-fluid text-center">

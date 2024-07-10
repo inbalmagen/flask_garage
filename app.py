@@ -113,5 +113,28 @@ def delete_car(id):
     cars = [car for car in cars if car["id"] != id]
     return redirect(url_for('cars_list'))
 
+@app.route("/edit_car/<id>")
+def edit_car(id):
+    car_to_edit = None
+    for car in cars:
+        if car["id"] == id:
+            car_to_edit = car
+            break
+    if car_to_edit:
+        return render_template("edit_car.html", car=car_to_edit)
+    return redirect(url_for('cars_list'))
+
+@app.route("/update_car/<id>", methods=["POST"])
+def update_car(id):
+    for car in cars:
+        if car["id"] == id:
+            car["number"] = request.form.get("cNumber")
+            car["urgent"] = request.form.get("cUrgent") == "true"
+            car["problems"] = request.form.get("cProblems").split(',')
+            car["image"] = request.form.get("cURL")
+            break
+    return redirect(url_for('cars_list'))
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=9000)
