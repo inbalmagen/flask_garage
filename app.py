@@ -1,22 +1,10 @@
 from flask import Flask, redirect, render_template, request, url_for
 
-# class user:
-#     def __init__(self, id, username, password):
-#         self.id = id
-#         self.username = username
-#         self.password = password
-        
-#     def __repr__(self):
-#         return f"<user: {self.username}> "
-
-# users = []
-# users.append(user(id=1, username="inbal", password="password"))
-# users.append(user(id=2, username="dor", password="111"))
-# users.append(user(id=3, username="danielle", password="222"))
-
-# print(users)
-# print(users[1].password)
-# print(users[2].username)
+users = [{"name": "inbal", "password": "111"}]
+    
+    # {"name": "dor", "password": "222"}
+    # {"name": "danielle", "password": "333"}     
+         
 
 app = Flask(__name__)
 
@@ -51,7 +39,7 @@ def cars_list():
 
     return render_template("car_list.html", car_list=filtered_cars)
 
-# @app.route("/login", methods=["POST", "GET"])
+# @app.route("/login/", methods=["POST", "GET"])
 # def login():  
 #     if request.method == "POST":
 
@@ -135,6 +123,23 @@ def update_car(id):
             break
     return redirect(url_for('cars_list'))
 
+@app.route("/login/", methods=["POST", "GET"])
+def login():
+    message = ""
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        for user in users:
+            if user.get("name") == username and user.get("password") == password:
+                print("logged in!")
+                return redirect("/")
+        message = "Problem in username or password"
+        print("POST!!!!!!!!!! got:", username, password)
+    else:
+        print("GET!!!!!!!!")
 
+    return render_template("login.html", message=message)
+    
+   
 if __name__ == "__main__":
     app.run(debug=True, port=9000)
