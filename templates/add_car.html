@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<body>
-
+{% extends "base.html" %}
+{% block content %}
 <h2>Please enter:</h2>
-<!-- car1 = {"id": "1", "number": "111-111", "problems": [], "image": -->
 
 <form action="/add_to_list" method="POST"> 
   <label for="fname">Car id:</label><br>
@@ -16,8 +13,5 @@
   <input type="text" id="cURL" name="cURL" ><br><br>
   <input type="submit" value="Add Car">
 </form> 
-
-
-</body>
-</html>
+{% endblock %}
 

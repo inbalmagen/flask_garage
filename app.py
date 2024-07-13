@@ -69,7 +69,7 @@ def cars_list():
 #     else:
 #         new_cars = filtered_cars
 
-    return render_template("car_list.html", car_list=new_cars)
+    # return render_template("car_list.html", car_list=new_cars)
 
     
 @app.route("/single_car/<id>")
