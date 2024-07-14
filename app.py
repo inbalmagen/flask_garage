@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, url_for, flash
+from flask import Flask, redirect, render_template, request, session, url_for, flash
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -98,13 +98,14 @@ def login():
         password = request.form.get("password")
         for user in users:
             if user.get("name") == username and user.get("password") == password:
-                flash("Logged in successfully!", "success")
-                print("logged in!")
+                flash("Login successful!", "success")
+                session.permanent = True
+                session["logged_in"] = True
+                session["username"] = username
                 return redirect("/")
-        message = "Problem in username or password"
-        flash("Problem in username or password", "danger")
+        flash("Error in user or password", "danger")
 
-    return render_template("login.html", message=message)
+    return render_template("login.html")
     
    
 if __name__ == "__main__":
