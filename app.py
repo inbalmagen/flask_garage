@@ -1,12 +1,11 @@
-from flask import Flask, redirect, render_template, request, url_for
-
-users = [{"name": "inbal", "password": "111"}]
-    
-    # {"name": "dor", "password": "222"}
-    # {"name": "danielle", "password": "333"}     
-         
+from flask import Flask, redirect, render_template, request, url_for, flash
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'
+
+
+users = [{"name": "inbal", "password": "111"}]        
+
 
 car1 = {"id": "1", "number": "111-111", "urgent": True, "problems": ["gear", "breaks"], "image": "https://res.cloudinary.com/midrag/image/upload/c_scale,w_1400,q_auto,f_auto/Cms/gzxece10vhxs6sm7gy7x.jpg"}
 car2 = {"id": "2", "number": "222-222", "urgent": True,"problems": ["gear", "engine"], "image": "https://pic1.calcalist.co.il/PicServer3/2017/02/12/702870/CAL0308656_l.jpg"}
@@ -37,39 +36,7 @@ def cars_list():
     if search:
         filtered_cars = [car for car in filtered_cars if search in car['number'].lower() or any(search in problem.lower() for problem in car.get('problems', []))]
 
-    return render_template("car_list.html", car_list=filtered_cars)
-
-# @app.route("/login/", methods=["POST", "GET"])
-# def login():  
-#     if request.method == "POST":
-
-#         return render_template("login.html")
-
-# @app.route("/profile")
-# def profile():
-#     return render_template("profile.html")
-
-
-# @app.route("/")
-# def cars_list():
-#     # handling problem filter
-#     problem_filter = request.args.get('problem','').lower()
-#     if problem_filter:
-#         filtered_cars = []
-#         for car in cars:
-#             if problem_filter in car.get('problems',[]):
-#                 filtered_cars.append(car)
-#     else:
-#         filtered_cars = cars  # Return all cars if no problem filter is requested
-
-#     # handling urgent after problem filter
-#     urgent = request.args.get('urgent','')
-#     if urgent == "true":
-#         new_cars = [car for car in filtered_cars if car.get('urgent')]
-#     else:
-#         new_cars = filtered_cars
-
-    # return render_template("car_list.html", car_list=new_cars)
+    return render_template("cars_list.html", car_list=filtered_cars)
 
     
 @app.route("/single_car/<id>")
@@ -131,12 +98,11 @@ def login():
         password = request.form.get("password")
         for user in users:
             if user.get("name") == username and user.get("password") == password:
+                flash("Logged in successfully!", "success")
                 print("logged in!")
                 return redirect("/")
         message = "Problem in username or password"
-        print("POST!!!!!!!!!! got:", username, password)
-    else:
-        print("GET!!!!!!!!")
+        flash("Problem in username or password", "danger")
 
     return render_template("login.html", message=message)
     
